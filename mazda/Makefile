@@ -36,7 +36,7 @@ PKG_LIBS   := $(shell $(PKG_CONFIG) --libs   $(PKGS) 2>/dev/null)
 #                              build). Leave defined for the navigation-only release.
 #   CARPLAY_VN_NORMALIZE  = strip Vietnamese diacritics so road names render on the
 #                              HUD's limited font. Set to 0 / remove for other locales.
-FEATURE_FLAGS := -DCARPLAY_NO_SPLIM -DCARPLAY_VN_NORMALIZE=1
+FEATURE_FLAGS := -DCARPLAY_NO_SPLIM -DCARPLAY_VN_NORMALIZE=0
 
 # -D_GLIBCXX_USE_CXX11_ABI=0 selects the pre-C++11 (COW) std::string/std::list ABI:
 # the device ships libstdc++.so.6.0.14 (GCC 4.6 era) which only knows that ABI.
