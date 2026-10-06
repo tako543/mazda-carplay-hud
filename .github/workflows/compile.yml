@@ -1,0 +1,30 @@
+name: Build Mazda CarPlay HUD 2.0
+
+on:
+  workflow_dispatch: # 允許我們在網頁上手動點擊按鈕來觸發編譯
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 1. 複製程式碼到雲端電腦
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive # 自動把依賴的 ARM 工具鏈也下載下來
+
+    - name: 2. 安裝 Linux 必要編譯工具
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc-arm-linux-gnueabi g++-arm-linux-gnueabi make
+
+    - name: 3. 開始編譯 (不卡死、不亂碼版本)
+      run: |
+        cd mazda
+        make release
+
+    - name: 4. 將編譯好的成品打包出來
+      uses: actions/upload-artifact@v4
+      with:
+        name: mazda-hud-2.0-tw-edition
+        path: mazda/build/release/libpatch-blmjcicarplay.so
